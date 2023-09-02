@@ -15,7 +15,7 @@ function Price(props) {
                 </tr>
                 </thead>
                 <tbody>
-                {thickness.map((el, key) => <tr>
+                {thickness.map((el, key) => <tr key={key}>
                     <td>{el.thickness} мм.</td>
                     <td>{el.cuttingPrice} руб.</td>
                     <td>{el.holePrice} руб.</td>
