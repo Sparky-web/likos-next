@@ -50,9 +50,9 @@ const Media = ({image: media, i}) => {
         <Dialog open={open} onClose={() => setOpen(false)} className={"gallery__full-image"}>
             <DialogContent >
                 {media.ext !== ".mp4" ?
-                    <Image src={media.url} fill={true} loader={buildLoader(media)} alt={""}
+                    <Image src={media.url} fill={true} loader={buildLoader(media)} alt={'yea'}
                            onClick={() => setOpen(true)}
-                           className={"gallery__full-image"}/>
+                           className={'gallery__full-image'} />
                     :
                     <Video videoSrcURL={`${process.env.NEXT_PUBLIC_STRAPI_URL}${media.url}`} videoTitle={"smth"}/>
                 }

@@ -39,7 +39,7 @@ function Navbar({pages}) {
                     </Link>
 
                     {pages.map(e => (
-                        <Link href={`/${e.url}`}>
+                        <Link href={`/${e.url}`} key={e.url}>
                             <button className="btn">
                                 {e.title}
                             </button>
