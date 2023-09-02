@@ -1,20 +1,10 @@
-import '../styles/globals.css'
-
 import React from 'react';
+import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import "../css/Cart.css"
 
 import {createTheme, ThemeProvider} from "@mui/material";
-import "../css/App.css"
-import "../css/Calculate.css"
 
 import "../css/General.css"
-import "../css/Gallery.css"
-import axios from "axios";
-
-import App from 'next/app'
-import Navbar from "../components/Navbar";
-import CartContextProvider from "../components/CartContext";
 
 const theme = createTheme({
     palette: {
@@ -30,21 +20,19 @@ const theme = createTheme({
     typography: {}
 });
 
-
-function MyApp({Component, pages, pageProps}) {
+function Layout(props) {
     return (
-        <>
-            {/*<SEO/>*/}
+        <React.StrictMode>
+            {/*<SEO />*/}
             <ThemeProvider theme={theme}>
-                <CartContextProvider>
-                    <header><Navbar pages={pages}/></header>
-                    <main>
-                        <Component {...pageProps} />
-                    </main>
-                    <footer><Footer/></footer>
-                </CartContextProvider>
-            </ThemeProvider>
 
+                <header><Navbar/></header>
+                <main>
+                    {props.children}
+                </main>
+                <footer><Footer/></footer>
+
+            </ThemeProvider>
             <div
                 dangerouslySetInnerHTML={{
                     __html: `
@@ -65,18 +53,8 @@ k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNo
     `
                 }}
             />
-        </>
-    )
+        </React.StrictMode>
+    );
 }
 
-MyApp.getInitialProps = async (context) => {
-    const ctx = await App.getInitialProps(context)
-    const pages = await axios.get(process.env.NEXT_PUBLIC_STRAPI_URL + '/pages').then(r => r.data)
-
-    return {
-        ...ctx,
-        pages: pages.filter(e => e.title).map(e => ({url: e.name, title: e.title}))
-    }
-}
-
-export default MyApp
+export default Layout;
