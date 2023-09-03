@@ -73,7 +73,7 @@
     display: block
   }
   .navbar__opened {
-    height: 20rem;
+    height: fit-content;
     z-index: 1;
     background: var(--background-secondary);
   }
