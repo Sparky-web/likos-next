@@ -1,5 +1,3 @@
-import '../styles/globals.css'
-
 import React from 'react';
 import Footer from "../components/Footer";
 import "../css/Cart.css"
