@@ -13,6 +13,7 @@ import axios from "axios";
 import App from 'next/app'
 import Navbar from "../components/Navbar";
 import CartContextProvider from "../components/CartContext";
+import Head from "next/head";
 
 const theme = createTheme({
     palette: {
@@ -29,10 +30,24 @@ const theme = createTheme({
 });
 
 
-function MyApp({Component, pages, pageProps}) {
+const routes = [
+    {route: '/calculate', title: 'Рассчитать стоимость плазменной резки'},
+    {route: '/contacts', title: 'Контакты'},
+    {route: '/gallery', title: 'Наши работы'},
+    {route: '/cart', title: 'Корзина'},
+    {route: '/price', title: 'Стоимость плазменной резки'},
+    {route: '/', title: 'Плазменная резка металла в Екатеринбурге'}
+]
+
+function MyApp({Component, pages, pageProps, url}) {
     return (
         <>
             {/*<SEO/>*/}
+            <Head>
+                <title>{pageProps?.data?.title ? pageProps?.data?.title + " | Ликос" :
+                    routes.find(e => e.route === url) ? routes.find(e => e.route === url).title + " | Ликос" :
+                    "ООО Ликос"}</title>
+            </Head>
             <ThemeProvider theme={theme}>
                 <CartContextProvider>
                     <header><Navbar pages={pages}/></header>
@@ -69,11 +84,13 @@ k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNo
 
 MyApp.getInitialProps = async (context) => {
     const ctx = await App.getInitialProps(context)
+    console.log(context)
     const pages = await axios.get(process.env.NEXT_PUBLIC_STRAPI_URL + '/pages').then(r => r.data)
 
     return {
         ...ctx,
-        pages: pages.filter(e => e.title).map(e => ({url: e.name, title: e.title}))
+        pages: pages.filter(e => e.title).map(e => ({url: e.name, title: e.title})),
+        url: context.router?.route
     }
 }
 
