@@ -336,6 +336,7 @@ main {
 }
 @media (max-width: 760px) {
   .contacts .container {
+    text-align: left;
     min-height: initial;
     grid-template-columns: 1fr;
   }
@@ -348,7 +349,7 @@ main {
 }
 
 .contacts__text {
-  max-width: fit-content;
+  /* max-width: fit-content; */
 }
 
 .footer {

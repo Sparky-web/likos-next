@@ -80,7 +80,7 @@ const IndexPage = ({data: {index, contacts}}) => {
 }
 
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
     const {data: [{Content: [index]}]} = await axios.get(`${process.env.NEXT_PUBLIC_STRAPI_URL}/pages`, {
         params: {
             name: 'index'
@@ -94,6 +94,7 @@ export const getServerSideProps = async () => {
 
 
     return {
+        revalidate: 60,
         props: {
             data: {index, contacts},
         }

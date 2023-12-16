@@ -3,8 +3,9 @@ import Section from "../components/landing/Section";
 import ReactMarkdown from "react-markdown";
 import ContactForm from "../components/ContactForm";
 
-export const getServerSideProps = async ({query}) => {
-    const pageName = query.name;
+export const getStaticProps = async ({params}) => {
+    const pageName = params.name;
+
 
     if (!pageName?.trim()) return {
         notFound: true,
@@ -27,12 +28,27 @@ export const getServerSideProps = async ({query}) => {
     });
 
     return {
+        revalidate: 60,
         props: {
             data: data[0].Content[0],
             contacts
         }
     };
 };
+
+export async function getStaticPaths() {
+  const {data} = await axios.get(`${process.env.NEXT_PUBLIC_STRAPI_URL}/pages`)
+ 
+  // Get the paths we want to pre-render based on posts
+  const paths = data.filter(page => !['contacts', 'index', 'gallery', 'config'].includes(page.name)).map((page) => ({
+    params: { name: page.name },
+  }))
+ 
+  // We'll pre-render only these paths at build time.
+  // { fallback: 'blocking' } will server-render pages
+  // on-demand if the path doesn't exist.
+  return { paths, fallback: 'blocking' }
+}
 
 export default function Page({data, contacts}) {
     return <><Section>

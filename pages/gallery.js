@@ -62,7 +62,7 @@ const Media = ({image: media, i}) => {
 }
 
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
     const {data: [{Content: [data]}]} = await axios.get(`${process.env.NEXT_PUBLIC_STRAPI_URL}/pages`, {
         params: {
             name: 'gallery'
@@ -73,6 +73,7 @@ export const getServerSideProps = async () => {
     return {
         props: {
             data,
-        }
+        },
+        revalidate: 60
     }
 }
