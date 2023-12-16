@@ -3,6 +3,12 @@
   color: var(--text-light);
 }
 
+img {    
+    object-fit: contain;
+    object-position: center;
+    max-width: 100%;
+}
+
 .headline {
   padding: 6rem 0;
   display: grid;

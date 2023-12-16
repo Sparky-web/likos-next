@@ -38,7 +38,11 @@ export default function Page({data, contacts}) {
     return <><Section>
         <h1>{data.title}</h1>
 
-        <ReactMarkdown>{data.content}</ReactMarkdown>
+        <ReactMarkdown
+	    transformImageUri={uri =>
+    		uri.startsWith("http") ? uri : `https://admin.likostrade.ru${uri}`
+	    } 
+	>{data.content}</ReactMarkdown>
 
     </Section>
         <ContactForm header={"Оставьте заявку"}

@@ -38,13 +38,19 @@ function Navbar({pages}) {
                         </button>
                     </Link>
 
-                    {pages.map(e => (
+                    {pages.filter(e => e.url !== 'contacts').map(e => (
                         <Link href={`/${e.url}`} key={e.url}>
                             <button className="btn">
                                 {e.title}
                             </button>
                         </Link>
                     ))}
+
+                    <Link href="/contacts">
+                        <button className="btn">
+                            Контакты
+                        </button>
+                    </Link>
 
                     {/*{items}*/}
                     <Link href={"/cart"}>
