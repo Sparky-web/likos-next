@@ -74,7 +74,7 @@ const IndexPage = ({data: {index, contacts}}) => {
             <Order header={"Оставьте заявку"}
                    content={"Если у вас возникли вопросы, или же вы хотите сделать индивидуальный заказ - заполните эту форму, и мы свяжемся с вами в ближайшее время."}
                    formImage={contacts.formImage.url}/>
-            <Contacts header={contacts.header} content={contacts.content} maps={contacts.maps}/>
+            <Contacts header={contacts.header} content={contacts.content} maps={contacts.maps} data={contacts}/>
         </>
     )
 }
